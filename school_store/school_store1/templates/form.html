@@ -1,0 +1,179 @@
+{% extends 'index.html'%}
+{% load static %}
+
+    <meta charset="UTF-8">
+    <title>{% block title %}School Store {% endblock %}</title>
+<style>
+    .col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+</style>
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>Make an Enquiry</title>
+
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link href="{% static 'form/css/main.css' %}" rel="stylesheet" media="all">
+</head>
+
+<body>
+{% block body %}
+    <div class="page-wrapper bg-dark p-t-100 p-b-50">
+        <div class="wrapper wrapper--w900">
+            <div class="card card-6">
+                <div class="card-heading">
+                    <h2 class="title">Make an Enquiry</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="form_submit" id="dropdownform" data-cities-url="{% url 'store_app:ajax_load_cities' %}">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="name"> Name</div>
+                            <div class="value">
+                                <input class="input--style-6" type="text" name="full_name">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">DOB</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-6" type="date" name="dob" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Age</div>
+                            <div class="value">
+                                <div class="input-group">
+                                     <input class="input--style-6" type="number" name="age" placeholder="enter age">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Gender</div>
+                            <div class="value">
+
+                                 <div class="input-group">
+                                     Male<input class="input--style-6" type="radio" name="Gender" >
+                                     Female<input class="input--style-6" type="radio" name="Gender" >
+                                </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Phone number</div>
+                            <div class="value">
+                                <div class="input-group">
+                                     <input class="input--style-6" type="number" name="number" placeholder="enter Phone number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Mail id</div>
+                            <div class="value">
+                               <div class="input-group">
+                                     <input class="input--style-6" type="email" name="number" placeholder="enter email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Address</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <textarea class="textarea--style-6" name="address" placeholder="Enter Address"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Department</div>
+                            <div class="value">
+                                <div class="input-group">
+
+
+
+                                     <select name="courses" hx-get="{% url 'store_app:course' %}" hx-trigger="change" hx-target="#courses">
+                                          {% for cat in lonks %}
+                                         <option class="dropdown-item" value="{{cat.id}}" selected>{{cat.name}}</option>
+                                         {% endfor %}
+                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" id="courses">
+                            <div class="name" >Course</div>
+                            <div class="value">
+                                <div class="input-group">
+                                     <select>
+                                         {% for cat in Course %}
+
+
+
+                                         <option class="dropdown-item" href="{{cat.get_urls}}">{{cat.name}}</option>
+
+{% endfor %}
+                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Purpose</div>
+                            <div class="value">
+                                <div class="input-group">
+                                     <select>
+                                         <option>Enquiry</option>
+                                         <option>Admission</option>
+
+                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Material Provide</div>
+                            <div class="value">
+                                <div class="input-group">
+                                  <label class="container">Notebook
+  <input type="checkbox" class="input--style-6">
+  <span class="checkmark"></span>
+</label><br><label class="container">Pen
+  <input type="checkbox" class="input--style-6">
+  <span class="checkmark"></span>
+</label>
+                                    <label class="container">Papper
+  <input type="checkbox" class="input--style-6">
+  <span class="checkmark"></span>
+</label>
+                                </div>
+                            </div>
+                        </div>
+                            </div>
+                            <a href="{% url 'store_app:form_submit' %}" class="btn btn--radius-2 btn--blue-2" type="submit">Send Application</a>
+                            <a href="{% url 'store_app:logout' %}" class="btn btn--radius-2 btn--blue-2" type="submit">Logout</a>
+                        </form>
+                </div>
+                <div class="card-footer">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+     <script src="{% static 'form/vendor/jquery/jquery.min.js' %}"></script>
+
+
+    <!-- Main JS-->
+    <script src="{% static 'form/js/global.js' %}"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>

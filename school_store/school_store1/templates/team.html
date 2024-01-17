@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+    <title>{% block title %}Department Details{% endblock %}</title>
+
+   {% block body %}
+<body>
+
+
+<div class="mx-auto">
+     {% if product %}
+    <div class="container-fluid">
+         <h1 class="text-center my_title">{{product.name}}</h1>
+        <img class="my_image" src="{{product.image.url}}" alt="{{product.name}}" width="1200" height="600">
+    <br>
+</div>
+<div>
+    <h1 class="text-center my_title">Details</h1>
+    <p class="text-justify">{{product.description}}</p>
+</div>
+    <div class="container-xxl bg-white p-0">
+        {% endif %}
+        </div>
+
+
+
+
+
+</body>
+{% endblock %}
+
+</html>

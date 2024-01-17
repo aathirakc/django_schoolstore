@@ -1,0 +1,154 @@
+{% extends 'index.html'%}
+{% load static %}
+
+    <meta charset="UTF-8">
+    <title>{% block title %}School Store {% endblock %}</title>
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+
+ <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link href="{% static 'form/css/main.css' %}" rel="stylesheet" media="all">
+</head>
+
+
+<body>
+
+{% block body %}
+<div class="container">
+<div class="page-wrapper bg-dark p-t-100 p-b-50" >
+        <div class="wrapper wrapper--w900" >
+            <div class="card card-6" >
+                <div class="card-heading">
+                    <h2 class="title">Make an Enquiry</h2>
+                    </div>
+                <div class=" container-fluid card-body" align="center">
+<form method="post" id="dropdownform" data-cities-url="{% url 'store_app:ajax_load_cities' %}" action="{% url 'store_app:form_submit' %}">
+    {% csrf_token %}
+<div class="name">Name : &nbsp;&nbsp;
+
+
+                                    <input class="input--style-6" type="text" name="name" >
+
+</div><br>
+
+                            <div class="name">DOB : &nbsp;&nbsp;
+
+
+                                    <input class="input--style-6" type="date" name="dob" >
+
+</div><br>
+
+
+                            <div class="name">Age: &nbsp;&nbsp;
+
+                                     <input class="input--style-6" type="number" name="age" placeholder="enter age">
+                                </div><br>
+
+                            <div class="name">Gender: &nbsp;&nbsp;
+
+                                     Male<input class="input--style-6" type="radio" name="Gender" >
+                                     Female<input class="input--style-6" type="radio" name="Gender" >
+                                </div><br>
+
+                            <div class="name">Phone number: &nbsp;&nbsp;
+
+                                     <input class="input--style-6" type="number" name="number" placeholder="enter Phone number">
+                                </div><br>
+
+                            <div class="name">Mail id: &nbsp;&nbsp;
+
+                                     <input class="input--style-6" type="email" name="number" placeholder="enter email">
+                                </div><br>
+
+                            <div class="name">Address: &nbsp;&nbsp;
+
+                                    <textarea class="textarea--style-6" name="address" placeholder="Enter Address"></textarea>
+                                </div><br>
+    {{ form.as_p }}
+
+                      <div class="name">Purpose: &nbsp;&nbsp;
+
+                                     <select>
+                                         <option>Enquiry</option>
+                                         <option>Admission</option>
+
+                                     </select>
+                                </div><br>
+
+                            <div class="name">Material Provide: &nbsp;&nbsp;<br>
+
+         <label>Notebook
+  <input type="checkbox" class="input--style-6">
+  <span class="checkmark"></span>
+</label><br><label class="container">Pen
+  <input type="checkbox" class="input--style-6">
+  <span class="checkmark"></span>
+</label>
+                                    <label class="container">Papper
+  <input type="checkbox" class="input--style-6">
+  <span class="checkmark"></span>
+</label>
+                                </div><br>
+
+
+
+                            <input type="submit" href="" class="btn btn-primary">
+                            <a href="{% url 'store_app:logout' %}" class="btn btn--radius-2 btn--blue-2" type="submit">Logout</a>
+
+</form>
+                    </div>
+        </div>
+    </div></div>
+     <script src="{% static 'form/vendor/jquery/jquery.min.js' %}"></script>
+
+
+    <!-- Main JS-->
+    <script src="{% static 'form/js/global.js' %}"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+     $("#id_department").change(function () {
+        const url = $("#dropdownform").attr("data-cities-url");  // get the url of the `load_cities` view
+        const departmentId = $(this).val();
+        console.log(url,departmentId)// get the selected country ID from the HTML input
+
+        $.ajax({
+            // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'department_id': departmentId       // add the country id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data)// `data` is the return of the `load_cities` view function
+                $("#id_course").html(data);  // replace the contents of the city input with the data that came from the server
+                /*
+
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (city) {
+                    html_data += `<option value="${city.id}">${city.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_city").html(html_data);
+
+                */
+            }
+        });
+
+    });
+
+   </script>
+
+</body>
+</html>
+{% endblock %}
